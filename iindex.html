@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Variación anual a septiembre, 2022–2026</title>
+<style>
+:root{
+  color-scheme:light; --bg:#ffffff; --ink:#000000; --muted:#444444; --bar:#f1b9be; --hl:#d0021b; --tip-bg:#000000; --tip-ink:#ffffff;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.wrap{max-width:680px;margin:0 auto;padding:32px 20px}
+h1{margin:0 0 8px;padding-top:12px;border-top:5px solid var(--hl);font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:26px;line-height:1.15}
+.chart{position:relative}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.yr{font-size:14px;fill:var(--muted)!important;transition:fill .15s}
+.val{font-size:15px;font-weight:700}
+.col{cursor:pointer;outline:none}
+.col .fill{fill:var(--bar);transition:fill .15s;transform-box:fill-box}
+.col.pos .fill{transform-origin:50% 100%}
+.col.neg .fill{transform-origin:50% 0}
+.col.on .fill{fill:var(--hl)}
+.col.on .yr{fill:var(--ink)!important;font-weight:700}
+.col:focus-visible .hit{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+.hit{fill:transparent}
+.val,.yr{pointer-events:none}
+@media (prefers-reduced-motion: no-preference){
+  .col .fill{animation:grow .7s cubic-bezier(.2,.7,.2,1) both}
+  .col:nth-child(2) .fill{animation-delay:.05s}
+  .col:nth-child(3) .fill{animation-delay:.1s}
+  .col:nth-child(4) .fill{animation-delay:.15s}
+  .col:nth-child(5) .fill{animation-delay:.2s}
+  .val{animation:fade .5s .5s both}
+  @keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+}
+.tip{position:absolute;pointer-events:none;background:var(--tip-bg);color:var(--tip-ink);padding:8px 10px;font-size:12px;line-height:1.35;
+  transform:translate(-50%,-100%);white-space:nowrap;opacity:0;transition:opacity .12s}
+.tip.show{opacity:1}
+.tip b{display:block;font-size:15px}
+.src{margin-top:12px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Variación anual en septiembre</h1>
+  <div class="chart" id="chart">
+    <svg viewBox="0 0 640 340" role="group" aria-label="Variación anual a septiembre, 2022 a 2026">
+      <line x1="60" x2="620" y1="151.4" y2="151.4" stroke="var(--ink)" stroke-width="1"/>
+      <g class="col neg" tabindex="0" data-year="2022" data-v="-6.65" aria-label="2022: -6,65 %">
+        <rect class="hit" x="60" y="20" width="112" height="310"/>
+        <rect class="fill" x="81" y="151.4" width="70" height="123.5"/>
+        <text class="val" x="116" y="296" text-anchor="middle">-6,65 %</text>
+        <text class="yr" x="116" y="326" text-anchor="middle">2022</text>
+      </g>
+      <g class="col pos" tabindex="0" data-year="2023" data-v="0.43" aria-label="2023: 0,43 %">
+        <rect class="hit" x="172" y="20" width="112" height="310"/>
+        <rect class="fill" x="193" y="143.4" width="70" height="8"/>
+        <text class="val" x="228" y="132" text-anchor="middle">0,43 %</text>
+        <text class="yr" x="228" y="326" text-anchor="middle">2023</text>
+      </g>
+      <g class="col neg" tabindex="0" data-year="2024" data-v="-0.76" aria-label="2024: -0,76 %">
+        <rect class="hit" x="284" y="20" width="112" height="310"/>
+        <rect class="fill" x="305" y="151.4" width="70" height="14.1"/>
+        <text class="val" x="340" y="186" text-anchor="middle">-0,76 %</text>
+        <text class="yr" x="340" y="326" text-anchor="middle">2024</text>
+      </g>
+      <g class="col pos" tabindex="0" data-year="2025" data-v="0.55" aria-label="2025: 0,55 %">
+        <rect class="hit" x="396" y="20" width="112" height="310"/>
+        <rect class="fill" x="417" y="141.2" width="70" height="10.2"/>
+        <text class="val" x="452" y="130" text-anchor="middle">0,55 %</text>
+        <text class="yr" x="452" y="326" text-anchor="middle">2025</text>
+      </g>
+      <g class="col pos on" tabindex="0" data-year="2026" data-v="4.45" aria-label="2026: 4,45 %">
+        <rect class="hit" x="508" y="20" width="112" height="310"/>
+        <rect class="fill" x="529" y="68.8" width="70" height="82.6"/>
+        <text class="val" x="564" y="58" text-anchor="middle" style="font-size:20px">4,45 %</text>
+        <text class="yr" x="564" y="326" text-anchor="middle">2026</text>
+      </g>
+    </svg>
+    <div class="tip" id="tip" role="status"></div>
+  </div>
+  <div class="src">Fuente: Dane</div>
+</div>
+<script>
+(function(){
+  var chart=document.getElementById('chart'), tip=document.getElementById('tip');
+  var cols=[].slice.call(chart.querySelectorAll('.col')), last=cols[cols.length-1];
+  var fmt=function(n){return n.toFixed(2).replace('.',',')};
+  function activate(c){cols.forEach(function(x){x.classList.toggle('on',x===c)})}
+  function show(c){
+    activate(c);
+    var i=cols.indexOf(c), v=parseFloat(c.dataset.v), html='<b>'+fmt(v)+' %</b>'+c.dataset.year;
+    if(i>0){var d=v-parseFloat(cols[i-1].dataset.v);
+      html+='<br>'+(d>=0?'+':'')+fmt(d)+' pp frente a '+cols[i-1].dataset.year}
+    tip.innerHTML=html;
+    var r=c.querySelector('.fill').getBoundingClientRect(), b=chart.getBoundingClientRect();
+    tip.style.left=(r.left-b.left+r.width/2)+'px';
+    tip.style.top=(r.top-b.top-30)+'px';
+    tip.classList.add('show');
+  }
+  function reset(){tip.classList.remove('show');activate(last)}
+  cols.forEach(function(c){
+    c.addEventListener('mouseenter',function(){show(c)});
+    c.addEventListener('focus',function(){show(c)});
+    c.addEventListener('click',function(){show(c)});
+    c.addEventListener('mouseleave',reset);
+    c.addEventListener('blur',reset);
+  });
+  document.addEventListener('click',function(e){if(!chart.contains(e.target))reset()});
+})();
+</script>
+</body>
+</html>
